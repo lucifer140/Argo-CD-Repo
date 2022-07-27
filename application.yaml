@@ -1,17 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argoCD-application
+  name: eks-application
   namespace: argocd
 spec:
   project: default
 
   source:
     repoURL: https://github.com/lucifer140/Argo-CD-Repo.git
-    #targetRevision: HEAD
+    targetRevision: HEAD
     path: k8s
   destination: 
     server: https://FBF9C59D196545B124BB94B203D14423.gr7.ca-central-1.eks.amazonaws.com
-    namespace: my-cd-app
+    namespace: default
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+      allowEmpty: false # 
 
  

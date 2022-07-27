@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argoCD-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/lucifer140/Argo-CD-Repo.git
+    #targetRevision: HEAD
+    path: k8s
+  destination: 
+    server: https://FBF9C59D196545B124BB94B203D14423.gr7.ca-central-1.eks.amazonaws.com
+    namespace: my-cd-app
+
+ 
